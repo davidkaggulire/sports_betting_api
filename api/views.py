@@ -3,6 +3,7 @@
 from flask import Flask
 from flask import Blueprint
 from flask import jsonify, request
+from api.controllers.firestore import FireStoreDB
 from api.controllers.postgresdb import PostgreSQLDatabase
 from decorators.decorators import required_params
 from api.controllers.inmemory import InMemoryDatabase
@@ -39,8 +40,11 @@ def create_odds():
         # status = db.get_instance().connect()
         # print(status)
 
-        db = PostgreSQLDatabase()
-        status = db.connect()
+        # db = PostgreSQLDatabase()
+        # status = db.connect()
+
+        db = FireStoreDB()
+        status = db.get_instance().connect()
 
         created, odds = db.create(
             league,
@@ -93,8 +97,12 @@ def read_odds():
         # status = db.get_instance().connect()
         # print(status)
 
-        db = PostgreSQLDatabase()
-        status = db.connect()
+        # db = PostgreSQLDatabase()
+        # status = db.connect()
+
+        db = FireStoreDB()
+        status = db.get_instance().connect()
+        print(status)
 
         read, odds = db.read(league, date_from, date_to)
         print(odds)
@@ -108,7 +116,7 @@ def read_odds():
             return jsonify(message), 200
         else:
             message = {
-                "error": "Not found"
+                "error": "Odds Not found"
             }
             return jsonify(message), 404
 
@@ -121,7 +129,7 @@ def read_odds():
         return jsonify(error), 500
 
 
-@main_bp.route('/api/v1/odds/<int:odd_id>', methods=['PUT'])
+@main_bp.route('/api/v1/odds/<odd_id>', methods=['PUT'])
 @required_params(UpdateSchema())
 def update_odd(odd_id):
     form_data = request.get_json(force=True)
@@ -141,8 +149,12 @@ def update_odd(odd_id):
         # status = db.get_instance().connect()
         # print(status)
 
-        db = PostgreSQLDatabase()
-        status = db.connect()
+        # db = PostgreSQLDatabase()
+        # status = db.connect()
+        # print(status)
+
+        db = FireStoreDB()
+        status = db.get_instance().connect()
         print(status)
 
         read, odds = db.get_odd(odd_id=odd_id)
@@ -199,8 +211,12 @@ def delete_odds():
         # status = db.get_instance().connect()
         # print(status)
 
-        db = PostgreSQLDatabase()
-        status = db.connect()
+        # db = PostgreSQLDatabase()
+        # status = db.connect()
+        # print(status)
+
+        db = FireStoreDB()
+        status = db.get_instance().connect()
         print(status)
 
         read, odds = db.find_by_field(league, home_team, away_team, game_date)
