@@ -224,6 +224,7 @@ class PostgreSQLDatabase(IDatabase):
     def get_odd(self, odd_id):
         print("Table Before updating record ")
         try:
+            odd_id = int(odd_id)
             sql_select_query = """select * from odds where id = %s"""
             self.cur.execute(sql_select_query, (odd_id,))
             record = self.cur.fetchone()
