@@ -3,7 +3,6 @@
 from flask import Flask
 from flask import Blueprint
 from flask import jsonify, request
-from itsdangerous import json
 from api.controllers.postgresdb import PostgreSQLDatabase
 from decorators.decorators import required_params
 from api.controllers.inmemory import InMemoryDatabase
