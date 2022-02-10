@@ -1,7 +1,6 @@
 import os
 from flask import Flask
 from . import views
-from flask_marshmallow import Marshmallow
 
 
 def create_app():
@@ -11,6 +10,4 @@ def create_app():
 
     env_config = os.getenv("APP_SETTINGS", "config.DevelopmentConfig")
     app.config.from_object(env_config)
-    # ma = Marshmallow(app)
-
     return app
