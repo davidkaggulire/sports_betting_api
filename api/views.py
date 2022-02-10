@@ -17,8 +17,7 @@ main_bp = Blueprint(
 
 @main_bp.route("/")
 def index():
-    secret_key = app.config.get("SECRET_KEY")
-    return f"The configured secret key is {secret_key}."
+    return "Betting API"
 
 
 @main_bp.route('/api/v1/odds', methods=['POST'])
