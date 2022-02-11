@@ -50,7 +50,7 @@ class FireStoreDB(IDatabase):
         draw_odds: float,
         game_date
     ):
-        print("-Creating data in Firestore")
+        print("-Saving odds in Firestore")
 
         try:
             odd = {
@@ -72,15 +72,15 @@ class FireStoreDB(IDatabase):
             return True, added_odds
         except Exception as e:
             reason = (
-                "-Failed to create data in Firestore: "
+                "-Failed to create odds in Firestore: "
                 + f"{type(e).__name__} {str(e)}"
             )
             print(reason)
             return False, reason
 
     def read(self, league, date_from, date_to):
-        print("-Viewing data")
-        # read data from database
+        print("-Viewing odds in database")
+        # read odds from database
         date_from = datetime.strptime(date_from.strip(), "%Y-%m-%d")
         date_to = datetime.strptime(date_to.strip(), "%Y-%m-%d")
         read_odds = []
@@ -93,12 +93,12 @@ class FireStoreDB(IDatabase):
             for doc in docs:
                 print('{} => {} '.format(doc.id, doc.to_dict()))
                 read_odds.append(doc.to_dict())
-            reason = "-Data viewed successfully in location"
+            reason = "-Odds viewed successfully"
             print(reason)
             return True, read_odds
         except Exception as e:
             reason = (
-                f"-Failed to read data in location {e}"
+                f"-Failed to read odds - {e}"
             )
             print(reason)
             return False, reason, ""
@@ -115,7 +115,7 @@ class FireStoreDB(IDatabase):
         game_date
     ):
         print("-Updating odds ")
-        # update data from database
+        # update odds from database
         try:
             updated_doc = self.odds_ref.document(odd_id).set({
                 "league": league,
@@ -133,24 +133,33 @@ class FireStoreDB(IDatabase):
             return True, odd
         except Exception as e:
             reason = (
-                f"-Failed to update data, error- {e} "
+                f"-Failed to update odds, error- {e} "
             )
             print(reason)
             return False, reason
 
-    def delete(self, location: str):
-        print(f"-Deleting data in location {location}")
-        my_query = {"_id": location}
-        read_value = self.contact.find_one(my_query)
+    def delete(self, league, home_team, away_team, game_date):
+        print("-Deleting odds from database")
 
-        if read_value:
-            print(read_value)
-            self.contact.delete_one(my_query)
-            reason = f"-Data deleted successfully in location {location}"
-            return True, reason
-        else:
+        try:
+            game_date = datetime.strptime(game_date.strip(), "%Y-%m-%d")
+            docs = self.odds_ref.where(
+                'league', '==', league).where(
+                'home_team', '==', home_team).where(
+                'away_team', '==', away_team).where(
+                'game_date', '==', game_date).get()
+            print(docs)
+            if docs:
+                for doc in docs:
+                  self.odds_ref.document(doc.id).delete()
+
+                reason = "-Odds deleted successfully"
+                return True, reason
+            
+            return False, "Odds not found"
+        except Exception as e:
             reason = (
-                f"-Failed to delete data in location {location}"
+                f"-Failed to delete odds - {e}"
             )
             print(reason)
             return False, reason
@@ -164,3 +173,19 @@ class FireStoreDB(IDatabase):
             return False, "Odds not found"
         except Exception as e:
             return False, f"An Error Occured: {e}"
+
+    def find_by_field(self, league, home_team, away_team, game_date):
+        """find specific field"""
+        game_date = datetime.strptime(game_date.strip(), "%Y-%m-%d")
+        try:
+            returned_odds = self.odds_ref.where(
+                    'league', '==', league).where(
+                    'home_team', '==', home_team).where(
+                    'away_team', '==', away_team).where(
+                    'game_date', '==', game_date).get()
+            print(returned_odds)
+            if returned_odds:
+                return True, returned_odds
+            return False, "couldn't find odds"
+        except:
+            return False, "failed to read Odds from db"
