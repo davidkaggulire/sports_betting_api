@@ -26,7 +26,16 @@ class InMemoryDatabase(IDatabase):
         print("disconnecting from database")
         return super().disconnect()
 
-    def create(self, league, home_team, away_team, home_team_win_odds, away_team_win_odds, draw_odds, game_date):
+    def create(
+        self,
+        league,
+        home_team,
+        away_team,
+        home_team_win_odds,
+        away_team_win_odds,
+        draw_odds,
+        game_date
+    ):
         global db
         try:
             odds = {
@@ -59,14 +68,24 @@ class InMemoryDatabase(IDatabase):
                     odd_copy = odd.copy()
                     odd_copy['game_date'] = datetime.strftime(odd_copy['game_date'], "%d-%m-%Y")
                     read_list.append(odd_copy)
-            
+
             print(read_list)
             return True, read_list
         except Exception as e:
             print(e)
             return False, "failed to read odds"
 
-    def update(self, odd_id, league, home_team, away_team, home_team_win_odds, away_team_win_odds, draw_odds, game_date):
+    def update(
+        self,
+        odd_id,
+        league,
+        home_team,
+        away_team,
+        home_team_win_odds,
+        away_team_win_odds,
+        draw_odds,
+        game_date
+    ):
         global db
         try:
             for odd in db:
@@ -110,10 +129,9 @@ class InMemoryDatabase(IDatabase):
             for odd in db:
                 if odd["id"] == int(odd_id):
                     odd_list.append(odd)
-            return True, odd_list       
-        except:
-            return False, "Can't find odds in db"
-
+            return True, odd_list
+        except Exception as e:
+            return False, f"Can't find odds in db - {e}"
 
     def find_by_field(self, league, home_team, away_team, game_date):
         """find specific field"""
@@ -125,5 +143,5 @@ class InMemoryDatabase(IDatabase):
                 if odds["league"] == league and odds["home_team"] == home_team and odds["away_team"] == away_team and odds["game_date"] == game_date:
                     odds_list.append(odds)
             return True, odds_list
-        except:
-            return False, "failed to read from db"
+        except Exception as e:
+            return False, f"failed to read from db -{e}"

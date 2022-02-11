@@ -82,7 +82,7 @@ class PostgreSQLDatabase(IDatabase):
             self.create_table()
 
             insert_stmt = (
-                """INSERT INTO odds 
+                """INSERT INTO odds
                 (
                     league,
                     home_team,
@@ -200,7 +200,7 @@ class PostgreSQLDatabase(IDatabase):
             sql_delete_query = """
                                 DELETE FROM odds where league=%s
                                 AND  home_team=%s
-                                AND away_team=%s  
+                                AND away_team=%s
                                 AND game_date=%s
                             """
             data = (
@@ -212,7 +212,7 @@ class PostgreSQLDatabase(IDatabase):
             self.cur.execute(sql_delete_query, data)
             count = self.cur.rowcount
             print(count, "Record deleted successfully ")
-            reason = f"-Data deleted successfully from database"
+            reason = "-Data deleted successfully from database"
             print(reason)
             return True, reason
         except (Exception, psycopg2.Error) as error:

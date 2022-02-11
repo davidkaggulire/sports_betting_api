@@ -7,7 +7,8 @@ from api.controllers.firestore import FireStoreDB
 from api.controllers.postgresdb import PostgreSQLDatabase
 from decorators.decorators import required_params
 from api.controllers.inmemory import InMemoryDatabase
-from schemas.oddschema import CreateSchema, DeleteSchema, ReadSchema, UpdateSchema
+from schemas.oddschema import CreateSchema, DeleteSchema
+from schemas.oddschema import ReadSchema, UpdateSchema
 
 app = Flask(__name__)
 
@@ -224,7 +225,8 @@ def delete_odds():
         if read is False:
             return jsonify({"message": "odds not found"}), 404
         if odds:
-            deleted, odds_data = db.delete(league, home_team, away_team, game_date)
+            deleted, odds_data = db.delete(
+                league, home_team, away_team, game_date)
             print("this is the deleted data")
             print(odds_data)
             if deleted:

@@ -27,3 +27,12 @@ class MongoNoSQLDatabase(IDatabase):
 
     def create(self):
         return super().create()
+
+    def read(self):
+        return super().read()
+
+    def update(self):
+        return super().update()
+
+    def delete(self):
+        return super().delete()

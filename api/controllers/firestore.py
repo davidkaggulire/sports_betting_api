@@ -65,7 +65,9 @@ class FireStoreDB(IDatabase):
 
             saved_odds = self.odds_ref.add(odd)
             print(saved_odds[1].id)
-            added_odds = self.odds_ref.document(saved_odds[1].id).get().to_dict()
+            added_odds = self.odds_ref.document(
+                    saved_odds[1].id
+                ).get().to_dict()
 
             reason = "Successfully created"
             print(reason)
@@ -117,7 +119,7 @@ class FireStoreDB(IDatabase):
         print("-Updating odds ")
         # update odds from database
         try:
-            updated_doc = self.odds_ref.document(odd_id).set({
+            self.odds_ref.document(odd_id).set({
                 "league": league,
                 "home_team": home_team,
                 "away_team": away_team,
@@ -151,11 +153,11 @@ class FireStoreDB(IDatabase):
             print(docs)
             if docs:
                 for doc in docs:
-                  self.odds_ref.document(doc.id).delete()
+                    self.odds_ref.document(doc.id).delete()
 
                 reason = "-Odds deleted successfully"
                 return True, reason
-            
+
             return False, "Odds not found"
         except Exception as e:
             reason = (
@@ -187,5 +189,5 @@ class FireStoreDB(IDatabase):
             if returned_odds:
                 return True, returned_odds
             return False, "couldn't find odds"
-        except:
-            return False, "failed to read Odds from db"
+        except Exception as e:
+            return False, f"failed to read Odds from db -{e}"

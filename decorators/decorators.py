@@ -3,12 +3,11 @@
 from flask import jsonify, request
 from marshmallow import ValidationError
 from functools import wraps
-from pprint import pprint
 
 
 def required_params(schema):
     def decorator(fn):
- 
+
         @wraps(fn)
         def wrapper(*args, **kwargs):
             try:
@@ -20,6 +19,6 @@ def required_params(schema):
                 }
                 return jsonify(error), 403
             return fn(*args, **kwargs)
- 
+
         return wrapper
     return decorator
