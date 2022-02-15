@@ -9,6 +9,8 @@ from decorators.decorators import required_params
 from api.controllers.inmemory import InMemoryDatabase
 from schemas.oddschema import CreateSchema, DeleteSchema
 from schemas.oddschema import ReadSchema, UpdateSchema
+from decorators.decorators import api_key_required
+
 
 app = Flask(__name__)
 
@@ -24,6 +26,7 @@ def index():
 
 @main_bp.route('/api/v1/odds', methods=['POST'])
 @required_params(CreateSchema())
+@api_key_required
 def create_odds():
     form_data = request.get_json(force=True)
     print(form_data)
@@ -37,15 +40,15 @@ def create_odds():
     game_date = form_data['game_date']
 
     try:
-        # db = InMemoryDatabase()
-        # status = db.get_instance().connect()
-        # print(status)
+        db = InMemoryDatabase()
+        status = db.get_instance().connect()
+        print(status)
 
         # db = PostgreSQLDatabase()
         # status = db.connect()
 
-        db = FireStoreDB()
-        status = db.get_instance().connect()
+        # db = FireStoreDB()
+        # status = db.get_instance().connect()
 
         created, odds = db.create(
             league,
@@ -82,6 +85,7 @@ def create_odds():
 
 @main_bp.route('/api/v1/odds', methods=['GET'])
 @required_params(ReadSchema())
+@api_key_required
 def read_odds():
     form_data = request.get_json(force=True)
     print(form_data)
@@ -94,16 +98,16 @@ def read_odds():
     date_to = date_range.split("to")[1].strip()
 
     try:
-        # db = InMemoryDatabase()
-        # status = db.get_instance().connect()
-        # print(status)
+        db = InMemoryDatabase()
+        status = db.get_instance().connect()
+        print(status)
 
         # db = PostgreSQLDatabase()
         # status = db.connect()
 
-        db = FireStoreDB()
-        status = db.get_instance().connect()
-        print(status)
+        # db = FireStoreDB()
+        # status = db.get_instance().connect()
+        # print(status)
 
         read, odds = db.read(league, date_from, date_to)
         print(odds)
@@ -132,6 +136,7 @@ def read_odds():
 
 @main_bp.route('/api/v1/odds/<odd_id>', methods=['PUT'])
 @required_params(UpdateSchema())
+@api_key_required
 def update_odd(odd_id):
     form_data = request.get_json(force=True)
     print(form_data)
@@ -146,17 +151,17 @@ def update_odd(odd_id):
     game_date = form_data['game_date']
 
     try:
-        # db = InMemoryDatabase()
-        # status = db.get_instance().connect()
-        # print(status)
+        db = InMemoryDatabase()
+        status = db.get_instance().connect()
+        print(status)
 
         # db = PostgreSQLDatabase()
         # status = db.connect()
         # print(status)
 
-        db = FireStoreDB()
-        status = db.get_instance().connect()
-        print(status)
+        # db = FireStoreDB()
+        # status = db.get_instance().connect()
+        # print(status)
 
         read, odds = db.get_odd(odd_id=odd_id)
 
@@ -198,6 +203,7 @@ def update_odd(odd_id):
 
 @main_bp.route('/api/v1/odds', methods=['DELETE'])
 @required_params(DeleteSchema())
+@api_key_required
 def delete_odds():
     form_data = request.get_json(force=True)
     print(form_data)
@@ -208,17 +214,17 @@ def delete_odds():
     game_date = form_data['game_date']
 
     try:
-        # db = InMemoryDatabase()
-        # status = db.get_instance().connect()
-        # print(status)
+        db = InMemoryDatabase()
+        status = db.get_instance().connect()
+        print(status)
 
         # db = PostgreSQLDatabase()
         # status = db.connect()
         # print(status)
 
-        db = FireStoreDB()
-        status = db.get_instance().connect()
-        print(status)
+        # db = FireStoreDB()
+        # status = db.get_instance().connect()
+        # print(status)
 
         read, odds = db.find_by_field(league, home_team, away_team, game_date)
         print(odds)
