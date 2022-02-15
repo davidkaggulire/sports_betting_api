@@ -121,14 +121,13 @@ def test_update_odds_while_authenitcated(client):
     odds = data['odds']
     odd_id = odds['id']
 
-    response = client.put(f'/api/v1/odds/{odd_id}', json=test_data,
-                            headers=headers)
+    response = client.put(f'/api/v1/odds/{odd_id}', json=test_data, headers=headers)
     json_data = response.get_json()
 
     assert json_data['message'] == 'Odds updated successfully'
     assert response.status_code == 200
 
-    response2 = client.put('/api/v1/odds/3', headers=headers,
+    response2 = client.put('/api/v1/odds/90', headers=headers,
                            json=test_data)
     json_data2 = response2.get_json()
     print(json_data2)
