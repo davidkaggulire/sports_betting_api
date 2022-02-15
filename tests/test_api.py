@@ -1,6 +1,5 @@
 # test.py
 
-from email import header
 import pytest
 import wsgi as app
 
@@ -185,7 +184,7 @@ def test_delete_odds_not_found(client):
     client.post('/api/v1/odds', json=test_data, headers=headers)
     response = client.delete('/api/v1/odds', json=data, headers=headers)
     json_data = response.get_json()
-    
+
     assert json_data['message'] == 'Odds not found'
     assert response.status_code == 404
 
@@ -212,6 +211,6 @@ def test_delete_invalid_input(client):
     response = client.delete('/api/v1/odds', json=data, headers=headers)
     json_data = response.get_json()
     print(json_data)
-    
+
     assert json_data['messages']['game_date'] == ["Not a valid date."]
     assert response.status_code == 403
