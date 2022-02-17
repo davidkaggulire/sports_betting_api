@@ -6,8 +6,8 @@ on:
       - main
 
 env:
-  GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.gcp_credentials }}
-  serviceAccount: ${{ secrets.gcp_credentials }}
+  GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
+  serviceAccount: ${{ secrets.GCP_SA_KEY }}
 
 jobs:
   build:
