@@ -115,23 +115,37 @@ def test_update_odds_while_not_authenitcated(client):
 
 
 def test_update_odds_while_authenitcated(client):
-    response = client.post('/api/v1/odds', json=test_data, headers=headers)
+    new_data = {
+        "league": "Spanish",
+        "home_team": "Celtic",
+        "away_team": "Barcelona",
+        "home_team_win_odds": 4.0,
+        "away_team_win_odds": 5.0,
+        "draw_odds": 4.0,
+        "game_date": "2010-01-12"
+    }
+    response = client.post('/api/v1/odds', json=new_data, headers=headers)
     data = response.get_json()
     odds = data['odds']
+    print(f"{odds} is the odds")
     odd_id = odds['id']
 
-    response = client.put(f'/api/v1/odds/{odd_id}', json=test_data, headers=headers)
-    json_data = response.get_json()
+    update_data = {
+        "league": "Spanish",
+        "home_team": "Celtic",
+        "away_team": "Atletico",
+        "home_team_win_odds": 4.0,
+        "away_team_win_odds": 5.0,
+        "draw_odds": 4.0,
+        "game_date": "2022-01-12"
+    }
+
+    response2 = client.put(f'/api/v1/odds/{odd_id}', json=update_data, headers=headers)
+    json_data = response2.get_json()
+    print(json_data)
 
     assert json_data['message'] == 'Odds updated successfully'
-    assert response.status_code == 200
-
-    response2 = client.put('/api/v1/odds/90', headers=headers,
-                           json=test_data)
-    json_data2 = response2.get_json()
-    print(json_data2)
-    assert json_data2["message"] == 'Odds not found'
-    assert response2.status_code == 404
+    assert response2.status_code == 200
 
 
 def test_delete_odds_while_not_authenitcated(client):
@@ -185,7 +199,7 @@ def test_delete_odds_not_found(client):
     response = client.delete('/api/v1/odds', json=data, headers=headers)
     json_data = response.get_json()
 
-    assert json_data['message'] == 'Odds not found'
+    assert json_data['message'] == 'odds not found'
     assert response.status_code == 404
 
 
