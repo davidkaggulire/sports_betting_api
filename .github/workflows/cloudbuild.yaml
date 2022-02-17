@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+env:
+  serviceAccount: ${{ secrets.gcp_credentials }}
+
 jobs:
   build:
     name: Cloud Run Deployment
