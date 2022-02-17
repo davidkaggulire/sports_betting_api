@@ -21,7 +21,7 @@ jobs:
           version: 'latest'
           service_account_email: ${{ secrets.GCP_SA_EMAIL }}
           service_account: ${{ secrets.GCP_CREDENTIALS }}
-          export_default_credentials: true
+          # export_default_credentials: true
 
       - name: Configure Docker
         run: |
