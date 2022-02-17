@@ -22,14 +22,17 @@ jobs:
         with:
           credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
 
-      - name: Setup GCP Service Account
-        id: gcloud
-        uses: google-github-actions/setup-gcloud@v0
-        with:
-          version: 'latest'
-          service_account_email: ${{ secrets.GCP_SA_EMAIL }}
-          service_account: ${{ secrets.GCP_SA }}
+      # - name: Setup GCP Service Account
+      #   id: gcloud
+      #   uses: google-github-actions/setup-gcloud@v0
+      #   with:
+      #     version: 'latest'
+      #     service_account_email: ${{ secrets.GCP_SA_EMAIL }}
+      #     service_account: ${{ secrets.GCP_SA }}
           # export_default_credentials: true
+
+      - name: 'Set up Cloud SDK'
+        uses: 'google-github-actions/setup-gcloud@v0'
 
       - name: Authenticate GCP
         run: |
