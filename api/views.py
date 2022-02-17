@@ -19,11 +19,6 @@ main_bp = Blueprint(
 )
 
 
-@main_bp.route("/")
-def index():
-    return "Betting API"
-
-
 @main_bp.route('/api/v1/odds', methods=['POST'])
 @required_params(CreateSchema())
 @api_key_required
@@ -40,15 +35,15 @@ def create_odds():
     game_date = form_data['game_date']
 
     try:
-        db = InMemoryDatabase()
-        status = db.get_instance().connect()
-        print(status)
+        # db = InMemoryDatabase()
+        # status = db.get_instance().connect()
+        # print(status)
 
         # db = PostgreSQLDatabase()
         # status = db.connect()
 
-        # db = FireStoreDB()
-        # status = db.get_instance().connect()
+        db = FireStoreDB()
+        status = db.get_instance().connect()
 
         created, odds = db.create(
             league,
@@ -98,16 +93,16 @@ def read_odds():
     date_to = date_range.split("to")[1].strip()
 
     try:
-        db = InMemoryDatabase()
-        status = db.get_instance().connect()
-        print(status)
+        # db = InMemoryDatabase()
+        # status = db.get_instance().connect()
+        # print(status)
 
         # db = PostgreSQLDatabase()
         # status = db.connect()
 
-        # db = FireStoreDB()
-        # status = db.get_instance().connect()
-        # print(status)
+        db = FireStoreDB()
+        status = db.get_instance().connect()
+        print(status)
 
         read, odds = db.read(league, date_from, date_to)
         print(odds)
@@ -151,17 +146,17 @@ def update_odd(odd_id):
     game_date = form_data['game_date']
 
     try:
-        db = InMemoryDatabase()
-        status = db.get_instance().connect()
-        print(status)
+        # db = InMemoryDatabase()
+        # status = db.get_instance().connect()
+        # print(status)
 
         # db = PostgreSQLDatabase()
         # status = db.connect()
         # print(status)
 
-        # db = FireStoreDB()
-        # status = db.get_instance().connect()
-        # print(status)
+        db = FireStoreDB()
+        status = db.get_instance().connect()
+        print(status)
 
         read, odds = db.get_odd(odd_id=odd_id)
 
@@ -214,17 +209,17 @@ def delete_odds():
     game_date = form_data['game_date']
 
     try:
-        db = InMemoryDatabase()
-        status = db.get_instance().connect()
-        print(status)
+        # db = InMemoryDatabase()
+        # status = db.get_instance().connect()
+        # print(status)
 
         # db = PostgreSQLDatabase()
         # status = db.connect()
         # print(status)
 
-        # db = FireStoreDB()
-        # status = db.get_instance().connect()
-        # print(status)
+        db = FireStoreDB()
+        status = db.get_instance().connect()
+        print(status)
 
         read, odds = db.find_by_field(league, home_team, away_team, game_date)
         print(odds)
@@ -244,7 +239,7 @@ def delete_odds():
                 message = {"message": "Error deleting data from database"}
                 return jsonify(message), 500
         else:
-            message = {"message": "Odds not found"}
+            message = {"message": "odds not found"}
             return jsonify(message), 404
     except Exception as e:
         print(e)
