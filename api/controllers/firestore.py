@@ -36,9 +36,9 @@ class FireStoreDB(IDatabase):
         self.odds_ref = db.collection('odds')
         return self.odds_ref
 
-    def disconnect(self):
-        print("Disconnecting from Firestore database")
-        return True
+    # def disconnect(self):
+    #     print("Disconnecting from Firestore database")
+    #     return True
 
     def create(
         self,
@@ -68,7 +68,8 @@ class FireStoreDB(IDatabase):
             added_odds = self.odds_ref.document(
                     saved_odds[1].id
                 ).get().to_dict()
-
+            # add unique identifier of document as id
+            added_odds['id'] = saved_odds[1].id
             reason = "Successfully created"
             print(reason)
             return True, added_odds
