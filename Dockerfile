@@ -4,12 +4,6 @@ WORKDIR /app
 
 COPY requirements.txt .
 
-# RUN pip install virtualenv
-
-# RUN python3 -m venv venv
-
-# RUN . venv/bin/activate
-
 RUN pip3 install -r requirements.txt
 
 COPY . . 
