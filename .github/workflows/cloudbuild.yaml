@@ -34,6 +34,9 @@ jobs:
       - name: 'Set up Cloud SDK'
         uses: 'google-github-actions/setup-gcloud@v0'
 
+      - name: 'Use gcloud CLI'
+        run: 'gcloud info'
+
       - name: Authenticate GCP
         run: |
           gcloud auth activate-service-account ${{ secrets.GCP_SA_NAME }} --key-file=PARSE_JSON(${{ secrets.GCP_CREDENTIALS }})
