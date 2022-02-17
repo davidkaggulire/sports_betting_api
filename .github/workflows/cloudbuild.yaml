@@ -6,6 +6,7 @@ on:
       - main
 
 env:
+  GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.gcp_credentials }}
   serviceAccount: ${{ secrets.gcp_credentials }}
 
 jobs:
