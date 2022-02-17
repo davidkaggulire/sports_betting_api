@@ -22,9 +22,9 @@ class InMemoryDatabase(IDatabase):
         print("connected to database")
         return True
 
-    def disconnect(self):
-        print("disconnecting from database")
-        return super().disconnect()
+    # def disconnect(self):
+    #     print("disconnecting from database")
+    #     return True
 
     def create(
         self,
