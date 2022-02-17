@@ -36,7 +36,7 @@ jobs:
 
       - name: Authenticate GCP
         run: |
-          gcloud auth activate-service-account ${{ secrets.GCP_SA_NAME }} --key-file=${{ secrets.GCP_CREDENTIALS }}
+          gcloud auth activate-service-account ${{ secrets.GCP_SA_NAME }} --key-file=PARSE_JSON(${{ secrets.GCP_CREDENTIALS }})
 
       - name: Configure Docker
         run: |
