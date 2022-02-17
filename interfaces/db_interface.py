@@ -9,9 +9,9 @@ class IDatabase(ABC):
     def connect(self):
         """connect database"""
 
-    @abstractmethod
-    def disconnect(self):
-        """disconnect database"""
+    # @abstractmethod
+    # def disconnect(self):
+    #     """disconnect database"""
 
     @abstractmethod
     def create(self):
