@@ -63,4 +63,4 @@ jobs:
       #     --project ${{ secrets.GCP_PROJECT_ID }}
       - name: Deploy to Google Cloud Run
         run: |-
-          gcloud run deploy automation --platform managed --region us-central1 --allow-unauthenticated --image us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting-api:latest
+          gcloud run deploy automation --platform managed --region us-central1 --allow-unauthenticated --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting-api:latest
