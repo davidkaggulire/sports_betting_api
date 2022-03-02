@@ -46,13 +46,13 @@ jobs:
       
       - name: Build
         run: |
-          docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting-api:latest .
+          docker build -t us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting-api:latest .
       # - name: Test Docker image
       #   run: |
       #       docker run gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting-api:latest sh -c "pytest" 
       - name: Push
         run: |
-          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting-api:latest
+          docker push us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting-api:latest
       # - name: Deploy
       #   run: |
       #     gcloud run deploy betting-api \
@@ -63,4 +63,4 @@ jobs:
       #     --project ${{ secrets.GCP_PROJECT_ID }}
       - name: Deploy to Google Cloud Run
         run: |-
-          gcloud run deploy automation --platform managed --region us-central1 --allow-unauthenticated --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting-api:latest
+          gcloud run deploy automation --platform managed --region us-central1 --allow-unauthenticated --image us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting-api:latest
