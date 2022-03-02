@@ -129,4 +129,4 @@ dmypy.json
 .pyre/
 
 # account keys
-# serviceAccountKey.json
+serviceAccountKey.json
