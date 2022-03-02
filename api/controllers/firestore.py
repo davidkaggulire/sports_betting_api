@@ -12,7 +12,7 @@ load_dotenv()
 config = os.environ.get('GOOGLE_APPLICATION_CREDENTIALS')
 
 # Apply credentials
-cred = credentials.Certificate('serviceAccountKey.json')
+cred = credentials.Certificate(config)
 
 firebase_admin.initialize_app(cred)
 
