@@ -1,7 +1,7 @@
 from api import create_app
 import os
 
-port = os.environ.get('PORT')
+port = int(os.environ.get('PORT', 8080))
 app = create_app()
 
 if __name__ == "__main__":
