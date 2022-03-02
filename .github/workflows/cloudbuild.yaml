@@ -49,10 +49,10 @@ jobs:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
           serviceAccount: ${{ secrets.GCP_SA_KEY }}
         run: |
-          docker build -t us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting:latest --build-arg GOOGLE_APPLICATION_CREDENTIALS=GOOGLE_APPLICATION_CREDENTIALS .
-      # - name: Test Docker image
-      #   run: |
-      #       docker run us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting:latest
+          docker build -t us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting:latest .
+      - name: Test Docker image
+        run: |
+            docker run --mount=type=secret, id=_env, dst=etc/secrets.env cat /etc/secrets.env us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting:latest
       - name: Push
         run: |
           docker push us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting:latest
