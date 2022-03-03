@@ -60,7 +60,7 @@ jobs:
 
       - name: Deploy to Google Cloud Run
         run: |-
-          gcloud run deploy betting --platform managed --region us-central1 --allow-unauthenticated --update-secrets=/${{ secrets.GCP_PROJECT_ID }}/betting=mysecret,ENV=serviceAccountKey:key.json --image us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting
+          gcloud run deploy betting --platform managed --region us-central1 --allow-unauthenticated --update-secrets=/${{ secrets.GCP_PROJECT_ID }}/betting=mysecret,ENV=${{ secrets.GCP_SA_KEY }}:key.json --image us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting
 
       - name: Delete serviceFile
         run: |
