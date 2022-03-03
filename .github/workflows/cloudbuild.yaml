@@ -52,7 +52,7 @@ jobs:
         env:
           CERTIFICATE_BASE64: ${{ secrets.CERTIFICATE_BASE64 }}
         run: |
-          docker run --mount type=bind,source="$(pwd)",target=/app -e GOOGLE_APPLICATION_CREDENTIALS=serviceAccountKey.json us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting:latest sh -c "pytest" 
+          docker run --mount type=volume,source="$(pwd)",target=/app -e GOOGLE_APPLICATION_CREDENTIALS=serviceAccountKey.json us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting:latest sh -c "pytest" 
 
       - name: Push
         run: |
@@ -60,7 +60,7 @@ jobs:
 
       - name: Deploy to Google Cloud Run
         run: |-
-          gcloud run deploy betting --platform managed --region us-central1 --allow-unauthenticated --image us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting --update-secrets=/${{ secrets.GCP_PROJECT_ID }}/betting:latest=mysecret,ENV=serviceAccountKey.json:1
+          gcloud run deploy betting --platform managed --region us-central1 --allow-unauthenticated --image us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting
 
       - name: Delete serviceFile
         run: |
