@@ -56,7 +56,7 @@ jobs:
 
       - name: Push
         run: |
-          docker push --mount type=bind,source="$(pwd)",target=/app -e GOOGLE_APPLICATION_CREDENTIALS=serviceAccountKey.json us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting:latest
+          docker push us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting:latest
 
       - name: Deploy to Google Cloud Run
         run: |-
