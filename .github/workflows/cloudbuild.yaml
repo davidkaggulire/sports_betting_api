@@ -52,7 +52,7 @@ jobs:
         env:
           CERTIFICATE_BASE64: ${{ secrets.CERTIFICATE_BASE64 }}
         run: |
-          docker run --mount type=bind,source="$(pwd)",target=/app -e GOOGLE_APPLICATION_CREDENTIALS=serviceAccountKey.json us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting:latest -c "pytest" 
+          docker run --mount type=bind,source="$(pwd)",target=/app -e GOOGLE_APPLICATION_CREDENTIALS=serviceAccountKey.json us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting:latest sh -c "pytest" 
 
       - name: Delete serviceFile
         run: |
