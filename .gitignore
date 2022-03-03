@@ -130,3 +130,4 @@ dmypy.json
 
 # account keys
 serviceAccountKey.json
+base64-key.tmp
