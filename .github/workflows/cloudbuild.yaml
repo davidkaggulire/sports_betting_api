@@ -43,7 +43,7 @@ jobs:
           docker build -t us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting:latest .
       - name: Test Docker image
         run: |
-          docker run --mount target=/app -e GOOGLE_APPLICATION_CREDENTIALS={{ secrets.GCP_SA_KEY }} us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting:latest
+          docker run --mount target=/app -e GOOGLE_APPLICATION_CREDENTIALS=GOOGLE_APPLICATION_CREDENTIALS us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting:latest
       - name: Push
         run: |
           docker push us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting:latest
