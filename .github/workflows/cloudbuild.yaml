@@ -52,11 +52,13 @@ jobs:
         run: |
           echo $CERTIFICATE_BASE64 | base64 --decode > serviceAccountKey.json
 
-      - name: push sa to docker
-        env:
-            CERTIFICATE_BASE64: ${{ secrets.CERTIFICATE_BASE64 }}
+      - name: create volume
         run: |
-          docker run --mount source=app,target=/app -e GOOGLE_APPLICATION_CREDENTIALS=serviceAccountKey.json us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting:latest sh -c "echo $CERTIFICATE_BASE64 | base64 --decode > serviceAccountKey.json"  
+          docker run --mount source=app,target=/app -e GOOGLE_APPLICATION_CREDENTIALS=serviceAccountKey.json us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting:latest sh -c "dir"  
+
+      - name: persist data to volume
+        run: |
+          docker run --mount source=app,target=/app -e GOOGLE_APPLICATION_CREDENTIALS=serviceAccountKey.json us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting:latest sh -c "echo $CERTIFICATE_BASE64 | base64 --decode > serviceAccountKey.json"
 
       - name: Test Docker Image
         env:
