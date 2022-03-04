@@ -60,7 +60,7 @@ jobs:
 
       - name: Inspect volume
         run: |
-          docker volume inspect
+          docker volume inspect app
 
       - name: Inspect container - second time
         run: |
