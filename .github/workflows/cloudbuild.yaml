@@ -61,13 +61,13 @@ jobs:
       - name: Inspect container - second time
         run: |
           docker inspect us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting:latest
-      # - name: Push
-      #   run: |
-      #     docker push us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting:latest
+      - name: Push
+        run: |
+          docker push us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting:latest
 
-      # - name: Deploy to Google Cloud Run
-      #   run: |-
-      #     gcloud run deploy betting --platform managed --region us-central1 --allow-unauthenticated --image us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting
+      - name: Deploy to Google Cloud Run
+        run: |-
+          gcloud run deploy betting --platform managed --region us-central1 --allow-unauthenticated --image us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting
 
       - name: Delete serviceFile
         run: |
