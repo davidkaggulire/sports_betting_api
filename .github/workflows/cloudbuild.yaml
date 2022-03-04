@@ -77,9 +77,6 @@ jobs:
         run: |
           docker run --mount source=app,target=/app -e GOOGLE_APPLICATION_CREDENTIALS=serviceAccountKey.json us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting:latest sh -c "dir" 
 
-      - name: view directory after touch file
-        run: |
-          docker run --mount source=app,target=/app -e GOOGLE_APPLICATION_CREDENTIALS=serviceAccountKey.json us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting:latest sh -c "nano serviceAccountKey.json" 
 
       # - name: Test Docker Image
       #   env:
