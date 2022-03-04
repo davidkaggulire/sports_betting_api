@@ -52,15 +52,15 @@ jobs:
         env:
           CERTIFICATE_BASE64: ${{ secrets.CERTIFICATE_BASE64 }}
         run: |
-          docker run  --mount source=vol2,target=/app -e GOOGLE_APPLICATION_CREDENTIALS=serviceAccountKey.json us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting:latest sh -c "dir" 
+          docker run  --mount source=vol2,target=/app/GOOGLE_APPLICATION_CREDENTIALS -e GOOGLE_APPLICATION_CREDENTIALS=serviceAccountKey.json us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting:latest sh -c "dir" 
 
-      - name: Push
-        run: |
-          docker push us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting:latest
+      # - name: Push
+      #   run: |
+      #     docker push us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting:latest
 
-      - name: Deploy to Google Cloud Run
-        run: |-
-          gcloud run deploy betting --platform managed --region us-central1 --allow-unauthenticated --image us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting
+      # - name: Deploy to Google Cloud Run
+      #   run: |-
+      #     gcloud run deploy betting --platform managed --region us-central1 --allow-unauthenticated --image us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting
 
       - name: Delete serviceFile
         run: |
