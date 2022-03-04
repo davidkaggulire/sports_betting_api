@@ -60,7 +60,7 @@ jobs:
         env:
             CERTIFICATE_BASE64: ${{ secrets.CERTIFICATE_BASE64 }}
         run: |
-          docker run -v app:/app -e GOOGLE_APPLICATION_CREDENTIALS=serviceAccountKey.json us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting:latest sh -c "echo GOOGLE_APPLICATION_CREDENTIALS > app/serviceAccountKey.json"
+          docker run -v "$(pwd):/app" -e GOOGLE_APPLICATION_CREDENTIALS=serviceAccountKey.json us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting:latest sh -c "echo GOOGLE_APPLICATION_CREDENTIALS > app/serviceAccountKey.json"
 
       # - name: Test Docker Image
       #   env:
