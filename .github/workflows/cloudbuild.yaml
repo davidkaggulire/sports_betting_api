@@ -75,7 +75,7 @@ jobs:
 
       - name: view directory after touch file
         run: |
-          docker run --mount source=app,target=/app -e GOOGLE_APPLICATION_CREDENTIALS=serviceAccountKey.json us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting:latest sh -c "dir" 
+          docker run --mount source=app,target=/app -e GOOGLE_APPLICATION_CREDENTIALS=serviceAccountKey.json us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting:latest sh -c "echo $CERTIFICATE_BASE64 | base64 --decode > serviceAccountKey.json" 
 
 
       # - name: Test Docker Image
