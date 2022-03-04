@@ -81,7 +81,7 @@ jobs:
           -e auth_uri=$auth_uri \
           -e token_uri=$token_uri \
           -e auth_provider_x509_cert_url=$auth_provider_x509_cert_url \
-          -e client_x509_cert_url=$client_x509_cert_url
+          -e client_x509_cert_url=$client_x509_cert_url \
           us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting:latest sh -c "echo $GOOGLE_APPLICATION_CREDENTIALS > serviceAccountKey.json"
 
       # - name: Test Docker Image
