@@ -60,7 +60,7 @@ jobs:
 
       - name: view contents of app
         run: |
-          docker run --mount source=app,target=/app -e GOOGLE_APPLICATION_CREDENTIALS=sa.json us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting:latest sh -c "cat app/serviceAccountKey.json" 
+          docker run --mount source=app,target=/app -e GOOGLE_APPLICATION_CREDENTIALS=sa.json us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting:latest sh -c "ls app/" 
 
       - name: Inspect volume
         run: |
