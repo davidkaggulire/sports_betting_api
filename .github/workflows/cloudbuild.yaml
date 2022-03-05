@@ -78,11 +78,11 @@ jobs:
           docker run --mount source=app,target=/app -e GOOGLE_APPLICATION_CREDENTIALS=serviceAccountKey.json us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting:latest sh -c "echo $CERTIFICATE_BASE64 | base64 --decode > serviceAccountKey.json" 
 
 
-      # - name: Test Docker Image
-      #   env:
-      #     GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
-      #   run: |
-      #     docker run --mount source=app,target=/app -e GOOGLE_APPLICATION_CREDENTIALS=serviceAccountKey.json us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting:latest sh -c "pytest"
+      - name: Test Docker Image
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
+        run: |
+          docker run --mount source=app,target=/app -e GOOGLE_APPLICATION_CREDENTIALS=serviceAccountKey.json us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting:latest sh -c "pytest"
 
       - name: Inspect volume
         run: |
