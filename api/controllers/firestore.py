@@ -5,7 +5,6 @@ from firebase_admin import firestore
 from dotenv import load_dotenv
 from interfaces.db_interface import IDatabase
 from datetime import datetime
-import json
 
 
 load_dotenv()
