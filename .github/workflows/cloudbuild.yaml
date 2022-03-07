@@ -60,11 +60,11 @@ jobs:
         env:
           CERTIFICATE_BASE64: ${{ secrets.CERTIFICATE_BASE64 }}
         run: |
-          echo $CERTIFICATE_BASE64 | base64 --decode > serviceAccountKey.json
+          mkdir tmp_security && echo $CERTIFICATE_BASE64 | base64 --decode > tmp_security/serviceAccountKey.json
 
       - name: Test Docker Image
         run: |
-          docker run -v "$(pwd):/app/security" -e GOOGLE_APPLICATION_CREDENTIALS=/app/security/serviceAccountKey.json us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting:latest sh -c "dir"
+          docker run -v "$(pwd)/tmp_security:/app/security" -e GOOGLE_APPLICATION_CREDENTIALS=/app/security/serviceAccountKey.json us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting:latest sh -c "pytest"
 
       - name: Inspect volume
         run: |
