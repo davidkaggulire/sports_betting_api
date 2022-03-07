@@ -77,7 +77,7 @@ jobs:
 
       - name: Authenticate gcloud
         env: 
-          ACCOUNT: ${{ secrets.ACCOUNT }}
+          ACCOUNT: ${{ secrets.GCP_CLIENT_EMAIL }}
         run: |
           gcloud auth activate-service-account ACCOUNT --key-file=tmp_security/serviceAccountKey.json
 
