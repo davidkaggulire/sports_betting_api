@@ -76,10 +76,8 @@ jobs:
           docker push us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting:latest
 
       - name: Authenticate gcloud
-        env: 
-          ACCOUNT: ${{ secrets.GCP_CLIENT_EMAIL }}
         run: |
-          gcloud auth activate-service-account ACCOUNT --key-file=tmp_security/serviceAccountKey.json
+          gcloud auth activate-service-account --key-file=tmp_security/serviceAccountKey.json
 
       - name: Deploy to Google Cloud Run
         run: |-
