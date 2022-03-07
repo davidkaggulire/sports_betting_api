@@ -2,8 +2,6 @@ FROM python:3.8-slim-buster
 
 WORKDIR /app
 
-ENV GOOGLE_APPLICATION_CREDENTIALS=/app/security/serviceAccountKey.json
-
 COPY requirements.txt .
 
 RUN pip3 install -r requirements.txt
