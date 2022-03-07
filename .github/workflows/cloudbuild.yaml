@@ -64,7 +64,7 @@ jobs:
 
       - name: Test Docker Image
         run: |
-          docker run -v "$(pwd):/app/security" -e GOOGLE_APPLICATION_CREDENTIALS=/app/security/serviceAccountKey.json us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting:latest sh -c "pytest"
+          docker run -v "$(pwd):/app/security" -e GOOGLE_APPLICATION_CREDENTIALS=/app/security/serviceAccountKey.json us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting:latest sh -c "dir"
 
       - name: Inspect volume
         run: |
