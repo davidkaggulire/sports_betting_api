@@ -66,14 +66,6 @@ jobs:
         run: |
           docker run -v "$(pwd)/tmp_security:/app/security" -e GOOGLE_APPLICATION_CREDENTIALS=/app/security/serviceAccountKey.json us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting:latest sh -c "pytest"
 
-      - name: Inspect volume
-        run: |
-          docker volume inspect app
-
-      - name: Inspect container - second time
-        run: |
-          docker inspect us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting:latest
-
       - name: Push
         run: |
           docker push us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting:latest
@@ -84,4 +76,4 @@ jobs:
 
       - name: Delete serviceFile
         run: |
-          rm serviceAccountKey.json
+          rm tmp_security/serviceAccountKey.json
