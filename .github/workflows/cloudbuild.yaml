@@ -71,13 +71,17 @@ jobs:
         run: |
           docker ps -a
 
-      # - name: Push
-      #   run: |
-      #     docker push us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting:latest
+      - name: Push
+        run: |
+          docker push us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting:latest
 
-      # - name: Deploy to Google Cloud Run
-      #   run: |-
-      #     gcloud run deploy betting --platform managed --region us-central1 --allow-unauthenticated --image us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting:latest
+      - name: Deploy to Google Cloud Run
+        run: |-
+          gcloud run deploy betting \
+          --platform managed --region us-central1 \
+          --allow-unauthenticated \
+          --image us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/betting:latest \
+          --project ${{ secrets.GCP_PROJECT_ID }}
 
       - name: Delete serviceFile
         run: |
