@@ -16,6 +16,12 @@ cred = credentials.Certificate(config)
 
 firebase_admin.initialize_app(cred)
 
+cred = credentials.ApplicationDefault()
+
+firebase_admin.initialize_app(
+    cred, {projectId: config.getSecret(secrets.GCP_PROJECT_ID)}
+)
+
 db = firestore.client()
 
 
