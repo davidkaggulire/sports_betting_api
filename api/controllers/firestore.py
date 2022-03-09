@@ -12,9 +12,9 @@ load_dotenv()
 config = os.environ.get('GOOGLE_APPLICATION_CREDENTIALS')
 
 # Apply credentials
-cred = credentials.Certificate(config)
+# cred = credentials.Certificate(config)
 
-firebase_admin.initialize_app(cred)
+# firebase_admin.initialize_app(cred)
 
 cred = credentials.ApplicationDefault()
 
