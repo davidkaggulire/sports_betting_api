@@ -10,14 +10,6 @@ env:
   GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
   serviceAccount: ${{ secrets.GCP_SA_KEY }}
   project_id: ${{ secrets.GCP_PROJECT_ID }}
-  private_key_id: ${{ secrets.GCP_PRIVATE_KEY_ID }}
-  private_key: ${{ secrets.GCP_PRIVATE_KEY }}
-  client_email: ${{ secrets.GCP_CLIENT_EMAIL }}
-  client_id: ${{ secrets.GCP_CLIENT_ID }}
-  auth_uri: ${{ secrets.AUTH_URI }}
-  token_uri: ${{ secrets.TOKEN_URI }}
-  auth_provider_x509_cert_url: ${{ secrets.AUTH_PROVIDER_CERT_URL }}
-  client_x509_cert_url: ${{ secrets.GCP_CLIENT_URL }}
 
 jobs:
   build:
