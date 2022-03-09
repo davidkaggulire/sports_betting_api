@@ -19,7 +19,7 @@ firebase_admin.initialize_app(cred)
 cred = credentials.ApplicationDefault()
 
 firebase_admin.initialize_app(
-    cred, {projectId: config.getSecret(secrets.GCP_PROJECT_ID)}
+    cred, {"projectId": config.getSecret({{ GCP_PROJECT_ID }})}
 )
 
 db = firestore.client()
