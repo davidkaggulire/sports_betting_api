@@ -10,6 +10,7 @@ from datetime import datetime
 load_dotenv()
 
 config = os.environ.get('GOOGLE_APPLICATION_CREDENTIALS')
+project_id = os.environ.get('project_id')
 
 # Apply credentials
 # cred = credentials.Certificate(config)
@@ -19,7 +20,7 @@ config = os.environ.get('GOOGLE_APPLICATION_CREDENTIALS')
 cred = credentials.ApplicationDefault()
 
 firebase_admin.initialize_app(
-    cred, {"projectId": config}
+    cred, {"projectId": project_id}
 )
 
 db = firestore.client()
