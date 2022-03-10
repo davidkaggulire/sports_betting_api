@@ -62,7 +62,7 @@ def test_read_odds_while_not_authenitcated(client):
         "league": "Premier",
         "date_range": "2021-12-31 to 2022-02-15"
     }
-    response = client.get('/api/v1/odds', json=data)
+    response = client.post('/api/v1/odds/read', json=data)
     json_data = response.get_json()
 
     assert json_data['message'] == 'API key required'
@@ -75,7 +75,7 @@ def test_read_odds_while_authenitcated(client):
         "date_range": "2021-12-31 to 2022-02-15"
     }
     client.post('/api/v1/odds', json=test_data, headers=headers)
-    response = client.get('/api/v1/odds', json=data, headers=headers)
+    response = client.post('/api/v1/odds/read', json=data, headers=headers)
     json_data = response.get_json()
 
     assert json_data['message'] == 'Odds read successfully'
@@ -87,7 +87,7 @@ def test_read_odds_that_dont_exist(client):
         "league": "Premier",
         "date_range": "2023-12-31 to 2024-02-15"
     }
-    response = client.get('/api/v1/odds', json=data, headers=headers)
+    response = client.post('/api/v1/odds/read', json=data, headers=headers)
     json_data = response.get_json()
 
     assert json_data['error'] == 'Odds Not found'
@@ -99,7 +99,7 @@ def test_read_odds_with_invalid_input_date_range(client):
         "league": "Premier",
         "date_range": "12-12-2021 to 15-02-2022"
     }
-    response = client.get('/api/v1/odds', json=data, headers=headers)
+    response = client.post('/api/v1/odds/read', json=data, headers=headers)
     json_data = response.get_json()
 
     assert json_data['message'] == 'Failed to read odds'
