@@ -78,7 +78,7 @@ def create_odds():
         return jsonify(error), 500
 
 
-@main_bp.route('/api/v1/odds', methods=['GET'])
+@main_bp.route('/api/v1/odds/read', methods=['POST'])
 @required_params(ReadSchema())
 @api_key_required
 def read_odds():
